@@ -10,7 +10,7 @@ public:
 };
 
 template <typename T>
-class ArrayStack : public Stack
+class ArrayStack : public Stack<T>
 {
 public:
     ArrayStack(int size);
