@@ -8,6 +8,7 @@ public:
     virtual bool dequeue(T &element) = 0;
     virtual bool isEmpty() const = 0;
     virtual bool isFull() const = 0;
+    virtual void display() const = 0;
     virtual bool front(T &element) const = 0;
     virtual bool back(T &element) const = 0;
 };
@@ -21,6 +22,7 @@ public:
     bool dequeue(T &element);
     bool isEmpty() const;
     bool isFull() const;
+    void display() const;
     bool front(T &element) const;
     bool back(T &element) const;
 
@@ -79,12 +81,32 @@ bool ArrayQueue<T>::isFull() const
 }
 
 template <typename T>
+void ArrayQueue<T>::display() const
+{
+    if (!isEmpty())
+    {
+        std::cout << "\nThe Queue is:" << std::endl;
+
+        for (int i = frontIndex + 1; i <= rearIndex; i++)
+        {
+            std::cout << data[i] << "\t";
+        }
+        std::cout << std::endl;
+        std::cout << std::endl;
+    }
+};
+
+template <typename T>
 bool ArrayQueue<T>::dequeue(T &element)
 {
     if (!isEmpty())
     {
-        frontIndex++;
-        element = data[frontIndex];
+        element = data[frontIndex + 1];
+        for (int i = 1; i <= rearIndex; i++)
+        {
+            data[i - 1] = data[i];
+        }
+        rearIndex--;
         return true;
     }
     else
